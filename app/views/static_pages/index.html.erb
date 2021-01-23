@@ -1,0 +1,28 @@
+<% if flash[:error] %>
+  <%= flash[:error] %>
+<% end %>
+
+<h5>Get Flickr Photos:</h5>
+
+<%= form_with url: static_pages_path, method: :get do |form| %>
+  <%= form.label :user_id, 'User ID:' %>
+  <%= form.text_field :user_id %>
+  <%= form.submit "Pull fotos ->" %>
+<% end %>
+
+<% if @photos %>
+  <% @photos.each do |photo| %>
+    <a href=<%= Flickr.url_photopage(photo) %>>
+        <%= image_tag Flickr.url(photo), loading: 'lazy' %>
+      </a>
+    <%= "https://live.staticflickr.com/#{photo.server}/#{photo.id}_#{photo.secret}.jpg" %>
+  <% end %>
+<% else %>
+  No photos found. Please check the user_id.
+<% end %>
+
+
+<!-- 191766129@N02 -->
+<!-- 191832478@N05 -->
+<!-- 17114381@N00 -->
+<!-- 43547163@N08 -->
